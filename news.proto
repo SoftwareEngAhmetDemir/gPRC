@@ -1,8 +1,8 @@
 syntax = "proto3";
 
 message News {
-    string id = 1;
-    string title = 2;
+    string id = 1; // id values means put this property as the first in json object
+    string title = 2;// put title as the second property
     string body = 3;
     string postImage = 4;
 }
@@ -18,5 +18,5 @@ service NewsService {
 message Empty {}
 
 message NewsList {
- repeated   News news = 1;
+ repeated   News news = 1;// repeat type to define an array and value to put this array as the first property in returned jsonObject
 }
