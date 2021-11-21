@@ -1,11 +1,10 @@
 const client = require("./client");
-const express = require('express')
-const app = express()
-const port = 3000
+
 // client.getAllNews({}, (error, news) => {
 //   if (error) throw error;
 //   console.log(news);
 // });
+
 
 // client.AddNews({}, (error, news) => {
 //     if (error) throw error;
@@ -14,18 +13,26 @@ const port = 3000
 
 
 
-let count = '1';
 
-app.get('/', (req, res) => {
-    client.deleteNews({id:count}, (error, news) => {
-        if (error) throw error;
-        console.log(news);
-      });
- let cn  = Number(count)+1;
- count = cn.toString();
-  res.send('Hello World!')
-})
+  // var call =  client.deleteNews({id:2}, (error, news) => {
+  //       if (error) throw error;
+  //       console.log(news);
+  //     });
+ 
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+var call= client.streamfunc( { id: '3', title: "Note 1", body: "Content 1", postImage: "Post image 1" },(error, news) => {
+    if(error) throw error;
+    console.log(news);
+  })
+
+      call.on('data', (data) =>   {console.log('ahmed alo i am here')
+        // console.log(data)
+        call.write({ id: 'dataname'}) // call or emit the call.on('data') in server
+}
+      )
+
+      call.on('end', () =>   {console.log('ended')
+  call.end();  // call or emit the call.on('end') in server
+    }
+      // console.log(data)
+    )

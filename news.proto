@@ -13,7 +13,11 @@ service NewsService {
     rpc GetAllNews (Empty) returns (NewsList) {}
     rpc AddNews (News) returns (News) {}
     rpc DeleteNews (NewsId) returns (NewsList) {}
+    rpc streamfunc(stream News) returns (stream NewsList) {} // now we can listen to this function by server
+    //stream as parameter means that client may do changes to server. https://www.youtube.com/watch?v=4ohwkWVgEZM watch from 4:00
+    //stream type as returned means that result from server to client
 }
+
 
 message Empty {}
 

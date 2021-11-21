@@ -21,10 +21,10 @@ let news = [
 ];
 
 server.addService(newsProto.NewsService.service, {
-  getAllNews: (_, callback) => {
-    // const _news = { id: '3', title: "Note 1", body: "Content 1", postImage: "Post image 1" };
+  getAllNews: (call, callback) => {
+    const _news = { id: '3', title: "Note 1", body: "Content 1", postImage: "Post image 1" };
     // news.push(_news);
-    
+
     callback(null, {news});
   },
   AddNews: (_, callback) => {
@@ -35,10 +35,34 @@ server.addService(newsProto.NewsService.service, {
   },
   deleteNews: (_, callback) => {
     const newsId = _.request.id;
-    console.log(newsId)
+    // console.log(newsId)
+  
     news = news.filter(({ id }) => id !== newsId);
     callback(null, {news});
+  },
+  streamfunc:(call,callback) => {
+    const _news = { id: '3', title: "Note 1", body: "Content 1", postImage: "Post image 1" };
+    // console.log(   call.request)
+    // _.write(_news)
+call.on('data', (data) => {
+ 
+  console.log('ahmed')
+  console.log(data)
+ 
+}
+)
+
+call.on('end', () => {
+ 
+  console.log('finished');
+})
+
+call.write(_news) // call on('data') in get_news or client
+call.end(); //// call on('end') in get_news or client
+
+// callback(_,{news})
   }
+ 
 });
 
 server.bindAsync(
